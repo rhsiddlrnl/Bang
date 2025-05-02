@@ -454,7 +454,7 @@ Actor* Shop(Actor* actor)
 		printf("1. 담배 : 500원\n");
 		printf("2. 돋보기 : 1000원\n");
 		printf("3. 수갑 : 1500원\n");
-		printf("\n4. 현재 지닌 물건 확인하기.\n");
+		printf("4. 현재 지닌 물건 확인하기.\n");
 		printf("5. 구매 종료\n");
 		scanf("%d", &select);
 		switch (select) {
@@ -496,6 +496,3 @@ Actor* Shop(Actor* actor)
 	}
 	return actor;
 }
-
-
-
