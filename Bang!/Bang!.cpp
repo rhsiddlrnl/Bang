@@ -43,121 +43,14 @@ void enqueueGun(Gun* gun, Bullet bullet);
 int dequeueGun(Gun* gun);
 void print_Gun(Gun* gun, int temp);
 void initActor(Actor* actor);
+void Game(Actor* player, int ai);
 
 int main() {
 	srand(time(NULL));
-	Gun* gun = (Gun*)malloc(sizeof(Gun));
-	initGun(gun);
-
 	Actor* player= (Actor*)malloc(sizeof(Actor));
 	initActor(player);
-	int myhealth = player->HP;
-
-	Actor* enemy = (Actor*)malloc(sizeof(Actor));
-	initActor(enemy);
-	int enemyhealth = enemy->HP;
-
-	printf("게임 시작\n");
-	printf("현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
-	int select = 0;
-	int enemyselect = 0;
-	Sleep(1000);
-	while ((myhealth>0) && (enemyhealth>0)) {
-		if (gun->rear == NULL) {
-			printf("\n새 탄창!\n");
-			Sleep(1000);
-			int temp = (rand() % MAX_SIZE_GUN)+1;
-			int livesum = 0;
-			for (int i = 0; i < temp; i++) {
-				enqueueGun(gun, createBullet());
-				livesum += gun->rear->dmg;
-			}
-			print_Gun(gun, temp);
-			gun->bulletnum = temp;
-			gun->livenum = livesum;
-			gun->blanknum = temp - livesum;
-			printf("%d %d %d\n", gun->bulletnum, gun->livenum, gun->blanknum);
-		}
-
-		printf("나의 차례\n");
-		while (1) {
-			Sleep(500);
-			printf("무엇을 할 것인가?\n1.격발 2.아이템\n");
-			Sleep(500);
-			scanf("%d", &select);
-			if (select == 1) {
-				printf("누굴 쏠 것 인가?\n1.나 자신 2. 상대\n");
-				Sleep(500);
-				scanf("%d", &select);
-				if (select == 2) {
-					printf("탕!...\n");
-					Sleep(1000);
-					if (dequeueGun(gun)) {
-						printf("실탄이었다!\n");
-						enemyhealth--;
-					}
-					else {
-						printf("공포탄이었다...\n");
-					}
-					break;
-				}
-				else {
-					printf("탕!...\n");
-					if (dequeueGun(gun)) {
-						printf("윽! 실탄이었다..\n");
-						myhealth--;
-						break;
-					}
-					else {
-						printf("휴! 공포탄이었다~\n");
-					}
-				}
-			}
-			else if (select == 2) {
-				printf("맥주를 사용했다.\n");
-				myhealth++;
-			}
-			Sleep(1000);
-			printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
-			if (enemyhealth == 0) break;
-			if (myhealth == 0) break;
-			if (gun->rear == NULL) break;
-		}
-		if (enemyhealth <= 0) break;
-		if (myhealth <= 0) break;
-		if (gun->rear == NULL) continue;
-
-		printf("\n상대의 차례!\n");
-		Sleep(1000);
-		enemyselect = 1;
-		if (enemyselect == 1) {
-			printf("상대는 이쪽으로 총구를 겨눴다.\n");
-			Sleep(1000);
-			printf("탕!...\n");
-			if (dequeueGun(gun)) {
-				printf("윽! 실탄이었다..\n");
-				myhealth--;
-			}
-			else {
-				printf("휴! 공포탄이었다~\n");
-			}
-
-		}
-		Sleep(500);
-		printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
-		if (enemyhealth == 0) break;
-		if (myhealth == 0) break;
-		
-	}
-	free(gun);
-
-	if (myhealth > enemyhealth) {
-		printf("승리!");
-	}
-	else {
-		printf("으하하 너의 패배다\nGAME OVER");
-	}
-
+	printf("2단계\n");
+	Game(player, 2);
 	return 0;
 }
 
@@ -238,6 +131,170 @@ void initActor(Actor* actor)
 	actor->HP = MAX_HEALTH;
 	actor->Medicine = 0;
 	actor->Saw = 0;
+}
+
+void Game(Actor* player, int ai)
+{
+	Gun* gun = (Gun*)malloc(sizeof(Gun));
+	initGun(gun);
+	int myhealth = player->HP;
+
+	Actor* enemy = (Actor*)malloc(sizeof(Actor));
+	initActor(enemy);
+	if (ai == 3) {
+
+	}
+	else if (ai == 2) {
+
+	}
+	else {
+
+	}
+	int enemyhealth = enemy->HP;
+
+	printf("게임 시작\n");
+	printf("현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
+	int select = 0;
+	int enemyselect = 0;
+	Sleep(1000);
+	while ((myhealth > 0) && (enemyhealth > 0)) {
+		if (gun->rear == NULL) {
+			printf("\n새 탄창!\n");
+			Sleep(1000);
+			int temp = (rand() % MAX_SIZE_GUN) + 1;
+			int livesum = 0;
+			for (int i = 0; i < temp; i++) {
+				enqueueGun(gun, createBullet());
+				livesum += gun->rear->dmg;
+			}
+			//print_Gun(gun, temp);
+			gun->bulletnum = temp;
+			gun->livenum = livesum;
+			gun->blanknum = temp - livesum;
+			printf("[남은 총알 수: %d발 실탄: %d발 공포탄: %d발]\n", gun->bulletnum, gun->livenum, gun->blanknum);
+		}
+
+		printf("나의 차례\n");
+		while (1) {
+			Sleep(500);
+			printf("무엇을 할 것인가?\n1.격발 2.아이템\n");
+			Sleep(500);
+			scanf("%d", &select);
+			if (select == 1) {
+				printf("누굴 쏠 것 인가?\n1.나 자신 2. 상대\n");
+				Sleep(500);
+				scanf("%d", &select);
+				if (select == 2) {
+					printf("탕!...\n");
+					Sleep(1000);
+					if (dequeueGun(gun)) {
+						printf("실탄이었다!\n");
+						enemyhealth--;
+						gun->livenum--;
+					}
+					else {
+						printf("공포탄이었다...\n");
+						gun->blanknum--;
+					}
+					break;
+				}
+				else {
+					printf("탕!...\n");
+					if (dequeueGun(gun)) {
+						printf("윽! 실탄이었다..\n");
+						myhealth--;
+						gun->livenum--;
+						break;
+					}
+					else {
+						printf("휴! 공포탄이었다~\n");
+						gun->blanknum--;
+					}
+				}
+			}
+			else if (select == 2) {
+				printf("맥주를 사용했다.\n");
+				myhealth++;
+			}
+			Sleep(1000);
+			gun->bulletnum = gun->livenum + gun->blanknum;
+			printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
+			printf("[남은 총알 수 : %d발]\n", gun->bulletnum);
+			if (enemyhealth == 0) break;
+			if (myhealth == 0) break;
+			if (gun->rear == NULL) break;
+		}
+		if (enemyhealth <= 0) break;
+		if (myhealth <= 0) break;
+		if (gun->rear == NULL) continue;
+
+		printf("\n상대의 차례!\n");
+		while (1) {
+			Sleep(1000);
+			if (ai == 1) {
+				enemyselect = 1;
+			}
+			else if (ai == 2) {
+				if (gun->livenum >= gun->blanknum) {
+					enemyselect = 1;
+				}
+				else {
+					enemyselect = 2;
+				}
+			}
+			if (enemyselect == 1) {
+				printf("상대는 이쪽으로 총구를 겨눴다.\n");
+				Sleep(1000);
+				printf("탕!...\n");
+				if (dequeueGun(gun)) {
+					printf("윽! 실탄이었다..\n");
+					myhealth--;
+					gun->livenum--;
+					break;
+				}
+				else {
+					printf("휴! 공포탄이었다~\n");
+					gun->blanknum--;
+					break;
+				}
+
+			}
+			else if (enemyselect == 2) {
+				printf("상대는 자신의 머리에 총구를 겨눴다.\n");
+				Sleep(1000);
+				printf("탕!...\n");
+				if (dequeueGun(gun)) {
+					printf("ㅋㅋ\n");
+					enemyhealth--;
+					gun->livenum--;
+					break;
+				}
+				else {
+					printf("이런 공포탄이었다...\n");
+					gun->blanknum--;
+				}
+			}
+			Sleep(500);
+			if (enemyhealth == 0) break;
+			if (myhealth == 0) break;
+			if (gun->rear == NULL) break;
+		}
+		
+		gun->bulletnum = gun->livenum + gun->blanknum;
+		printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
+		printf("[남은 총알 수 : %d발]\n", gun->bulletnum);
+		if (enemyhealth == 0) break;
+		if (myhealth == 0) break;
+
+	}
+	free(gun);
+
+	if (myhealth > enemyhealth) {
+		printf("승리!");
+	}
+	else {
+		printf("으하하 너의 패배다\nGAME OVER");
+	}
 }
 
 
