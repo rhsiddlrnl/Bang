@@ -50,8 +50,8 @@ int main() {
 	srand(time(NULL));
 	Actor* player= (Actor*)malloc(sizeof(Actor));
 	initActor(player);
-	printf("2단계\n");
-	Game(player, 2);
+	
+	Game(player, 3);
 	return 0;
 }
 
@@ -148,7 +148,9 @@ void Game(Actor* player, int ai)
 	Actor* enemy = (Actor*)malloc(sizeof(Actor));
 	initActor(enemy);
 	if (ai == 3) {
-
+		enemy->Cigarette = 2;
+		enemy->Dotbogi = 2;
+		enemy->Handcuffs = 2;
 	}
 	else if (ai == 2) {
 
@@ -157,6 +159,7 @@ void Game(Actor* player, int ai)
 
 	}
 	int enemyhealth = enemy->HP;
+	printf("%d단계\n", ai);
 
 	printf("게임 시작\n");
 	printf("현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
@@ -260,7 +263,10 @@ void Game(Actor* player, int ai)
 			if (myhealth == 0) break;
 			if (gun->rear == NULL) break;
 		}
-		player->canActorMove = TRUE;
+		if (!player->canActorMove) {
+			printf("수갑을 풀어내느라 총을 쏘지 못했다.\n");
+			player->canActorMove = TRUE;
+		}
 		if (enemyhealth <= 0) break;
 		if (myhealth <= 0) break;
 		if (gun->rear == NULL) continue;
@@ -273,6 +279,31 @@ void Game(Actor* player, int ai)
 			}
 			else if (ai == 2) {
 				if (gun->livenum >= gun->blanknum) {
+					enemyselect = 1;
+				}
+				else {
+					enemyselect = 2;
+				}
+			}
+			else if (ai == 3) {
+				if (gun->front->doAIknow) {
+					if (gun->front->dmg) {
+						enemyselect = 1;
+					}
+					else {
+						enemyselect = 2;
+					}
+				}
+				else if ((enemy->Dotbogi > 0) && (gun->livenum > 0) && (gun->blanknum>0)) {
+					enemyselect = 5;
+				}
+				else if ((enemy->Handcuffs > 0) && (player->canActorMove == TRUE) && (gun->livenum>0)) {
+					enemyselect = 4;
+				}
+				else if ((enemy->Cigarette > 0)&&(enemyhealth<MAX_HEALTH)) {
+					enemyselect = 3;
+				}
+				else if (gun->livenum >= gun->blanknum) {
 					enemyselect = 1;
 				}
 				else {
@@ -311,6 +342,23 @@ void Game(Actor* player, int ai)
 					gun->blanknum--;
 				}
 			}
+			else if (enemyselect == 3) {
+				printf("상대는 담배를 피기 시작했다.\n");
+				enemyhealth++;
+				enemy->Cigarette--;
+			}
+			else if (enemyselect == 4) {
+				printf("상대는 내 손에 수갑을 채웠다.\n");
+				Sleep(1000);
+				player->canActorMove = FALSE;
+				enemy->Handcuffs--;
+			}
+			else if (enemyselect == 5) {
+				printf("상대는 돋보기로 총을 살피기 시작했다.\n");
+				Sleep(1000);
+				gun->front->doAIknow = TRUE;
+				enemy->Dotbogi--;
+			}
 			Sleep(500);
 			if (enemyhealth == 0) break;
 			if (myhealth == 0) break;
@@ -318,9 +366,8 @@ void Game(Actor* player, int ai)
 		}
 		if (!enemy->canActorMove) {
 			printf("상대는 수갑을 풀어내느라 총을 쏘지 못했다.\n");
+			enemy->canActorMove = TRUE;
 		}
-		enemy->canActorMove = TRUE;
-		
 		gun->bulletnum = gun->livenum + gun->blanknum;
 		printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
 		printf("[남은 총알 수 : %d발]\n", gun->bulletnum);
