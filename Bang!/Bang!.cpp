@@ -41,6 +41,7 @@ int is_full(Gun* gun);
 Bullet createBullet();
 void enqueueGun(Gun* gun, Bullet bullet);
 int dequeueGun(Gun* gun);
+int peakGun(Gun* gun);
 void print_Gun(Gun* gun, int temp);
 void initActor(Actor* actor);
 void Game(Actor* player, int ai);
@@ -111,6 +112,11 @@ int dequeueGun(Gun* gun)
 	}
 }
 
+int peakGun(Gun* gun)
+{
+	return gun->front->dmg;
+}
+
 void print_Gun(Gun* gun, int num)
 {
 	Bullet* temp = gun->front;
@@ -125,9 +131,9 @@ void print_Gun(Gun* gun, int num)
 void initActor(Actor* actor)
 {
 	actor->canActorMove = TRUE;
-	actor->Cigarette = 0;
-	actor->Dotbogi = 0;
-	actor->Handcuffs = 0;
+	actor->Cigarette = 1;
+	actor->Dotbogi = 1;
+	actor->Handcuffs = 1;
 	actor->HP = MAX_HEALTH;
 	actor->Medicine = 0;
 	actor->Saw = 0;
@@ -175,7 +181,7 @@ void Game(Actor* player, int ai)
 		}
 
 		printf("나의 차례\n");
-		while (1) {
+		while (player->canActorMove) {
 			Sleep(500);
 			printf("무엇을 할 것인가?\n1.격발 2.아이템\n");
 			Sleep(500);
@@ -213,8 +219,38 @@ void Game(Actor* player, int ai)
 				}
 			}
 			else if (select == 2) {
-				printf("맥주를 사용했다.\n");
-				myhealth++;
+				printf("무슨 아이템을 사용할까?\n");
+				printf("1. 담배 : %d개\n", player->Cigarette);
+				printf("2. 돋보기 : %d개\n", player->Dotbogi);
+				printf("3. 수갑 : %d개\n", player->Handcuffs);
+				scanf("%d", &select);
+				if ((select == 1) && (player->Cigarette > 0)) {
+					printf("뻐끔뻐끔\n");
+					Sleep(1000);
+					printf("체력을 회복했다.\n");
+					myhealth++;
+					player->Cigarette--;
+				}
+				else if ((select == 2) && (player->Dotbogi > 0)) {
+					if (peakGun(gun) == 1) {
+						printf("실탄이다.\n");
+					}
+					else {
+						printf("공포탄이다.\n");
+					}
+					player->Dotbogi--;
+				}
+				else if ((select == 3) && (player->Handcuffs > 0)) {
+					enemy->canActorMove = FALSE;
+					printf("상대의 손에 수갑을 채웠다.\n");
+					player->Handcuffs--;
+				}
+				else {
+					printf("아이템을 가지고 있지 않는 듯 하다.");
+				}
+			}
+			else if (select == 9) {
+				enemyhealth = 0;
 			}
 			Sleep(1000);
 			gun->bulletnum = gun->livenum + gun->blanknum;
@@ -224,12 +260,13 @@ void Game(Actor* player, int ai)
 			if (myhealth == 0) break;
 			if (gun->rear == NULL) break;
 		}
+		player->canActorMove = TRUE;
 		if (enemyhealth <= 0) break;
 		if (myhealth <= 0) break;
 		if (gun->rear == NULL) continue;
 
 		printf("\n상대의 차례!\n");
-		while (1) {
+		while (enemy->canActorMove) {
 			Sleep(1000);
 			if (ai == 1) {
 				enemyselect = 1;
@@ -279,6 +316,10 @@ void Game(Actor* player, int ai)
 			if (myhealth == 0) break;
 			if (gun->rear == NULL) break;
 		}
+		if (!enemy->canActorMove) {
+			printf("상대는 수갑을 풀어내느라 총을 쏘지 못했다.\n");
+		}
+		enemy->canActorMove = TRUE;
 		
 		gun->bulletnum = gun->livenum + gun->blanknum;
 		printf("\n현재 나의 체력: %d 상대 체력: %d\n", myhealth, enemyhealth);
