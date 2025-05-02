@@ -50,8 +50,10 @@ int main() {
 	srand(time(NULL));
 	Actor* player= (Actor*)malloc(sizeof(Actor));
 	initActor(player);
-	
-	Game(player, 3);
+	int select = 0;
+	printf("난이도를 선택하세용가리치킨\n1.쉬움 2. 보통 3.어려움");
+	scanf("%d", &select);
+	Game(player, select);
 	return 0;
 }
 
