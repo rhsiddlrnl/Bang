@@ -14,8 +14,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +28,7 @@
               "RelativeDocumentMoniker": "Bang!\\Bang!.cpp",
               "ToolTip": "C:\\Bang-\\Bang!\\Bang!.cpp",
               "RelativeToolTip": "Bang!\\Bang!.cpp",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAMwAAABrAAAAAAAAAA==",
+              "ViewState": "AgIAAD0BAAAAAAAAAADgv2UBAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-05-01T14:01:56.638Z",
               "EditorCaption": ""
