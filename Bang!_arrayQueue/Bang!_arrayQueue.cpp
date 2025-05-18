@@ -1,9 +1,9 @@
-
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+
 
 #define MAX_SIZE_GUN 6
 #define MAX_HEALTH 5
@@ -34,6 +34,21 @@ typedef struct actor {
     int wincount;
 } Actor;
 
+void printAsciiArt(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("ASCII 아트 파일을 열 수 없습니다.\n");
+        return;
+    }
+
+    char line[4896]; // 한 줄씩 읽기 위한 버퍼
+    while (fgets(line, sizeof(line), file)) {
+        printf("%s", line);
+    }
+
+    fclose(file);
+}
+
 void initGun(Gun* gun) {
     gun->front = gun->rear = gun->count = 0;
     gun->livenum = gun->blanknum = gun->bulletnum = 0;
@@ -46,6 +61,7 @@ int is_empty(Gun* gun) {
 int is_full(Gun* gun) {
     return gun->count == MAX_SIZE_GUN;
 }
+void initActor(Actor* actor);
 
 Bullet createBullet() {
     Bullet bullet;
@@ -125,6 +141,8 @@ Actor* Game(Actor* player, int ai) {
                 Sleep(500);
                 scanf("%d", &select);
                 printf("탕!...\n");
+                printAsciiArt("revolber.txt");
+                printf("\n");
                 Sleep(1000);
                 int hit = dequeueGun(&gun);
                 if (select == 2) {
@@ -207,11 +225,13 @@ Actor* Game(Actor* player, int ai) {
                 }
             }
             if (enemyselect == 1) {
+                printAsciiArt("revolber.txt");
                 printf("상대는 이쪽으로 총구를 겨눴다.\n탕!...\n");
                 int hit = dequeueGun(&gun);
                 if (hit) { printf("윽! 실탄이었다..\n"); myhealth--; gun.livenum--; break; }
                 else { printf("휴! 공포탄이었다~\n"); gun.blanknum--; break; }
             } else if (enemyselect == 2) {
+                printAsciiArt("revolber.txt");
                 printf("상대는 자신의 머리에 총구를 겨눴다.\n탕!...\n");
                 int hit = dequeueGun(&gun);
                 if (hit) { printf("ㅋㅋ\n"); enemyhealth--; gun.livenum--; break; }
@@ -278,8 +298,14 @@ Actor* Shop(Actor* actor) {
     while (select != 5){
         printf("현재 소지 금액: %d원\n", actor->Money);
         printf("\n");
+        printAsciiArt("tabaco.txt");
+        printf("\n");
         printf("1. 담배 : 500원\n");
+        printAsciiArt("rens.txt");
+        printf("\n");
         printf("2. 돋보기 : 1000원\n");
+        printAsciiArt("sugap.txt");
+        printf("\n");
         printf("3. 수갑 : 1500원\n");
         printf("4. 현재 지닌 물건 확인하기.\n");
         printf("5. 구매 종료\n");

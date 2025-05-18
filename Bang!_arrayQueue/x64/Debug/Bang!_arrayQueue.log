@@ -1,2 +1,3 @@
 ﻿  Bang!_arrayQueue.cpp
-  Bang!_arrayQueue.vcxproj -> C:\Bang!_arrayQueue\x64\Debug\Bang!_arrayQueue.exe
+C:\Bang\Bang-\Bang!_arrayQueue\Bang!_arrayQueue.cpp(338,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Bang!_arrayQueue.vcxproj -> C:\Bang\Bang-\x64\Debug\Bang!_arrayQueue.exe
