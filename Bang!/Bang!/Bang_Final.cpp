@@ -88,23 +88,24 @@ Bullet dequeueGun(Gun* gun) {
 }
 
 Bullet peekGun(Gun* gun) {
-    return gun->bullets[gun->front];
+    return gun->bullets[gun->front+1];
 }
 
 void initActor(Actor* actor) {
     actor->canActorMove = 1;
     actor->Cigarette = 1;
-    actor->Dotbogi = 1;
+    actor->Dotbogi = 10;
     actor->Handcuffs = 1;
-    actor->Phone = 1;
+    actor->Phone = 10;
     actor->HP = MAX_HEALTH;
     actor->Money = 1000;
     actor->wincount = 0;
 }
 void Phone_item_func(Gun* gun) {
-    int N = (rand() % (gun->rear - gun->front)) + gun->front + 1;
-    printf("%d¹øÂ° ÃÑ¾ËÀº ", gun->rear - gun->front + 1);
-    printf("%s\n", gun->bullets[N].dmg == 1 ? "½ÇÅºÀÔ´Ï´Ù." : "°øÆ÷ÅºÀÔ´Ï´Ù.");
+    int N = rand() % (gun->rear - gun->front)+1;
+    int M = N + gun->front;
+    printf("%d¹øÂ° ÃÑ¾ËÀº ", N);
+    printf("%s\n", gun->bullets[M].dmg == 1 ? "½ÇÅºÀÔ´Ï´Ù." : "°øÆ÷ÅºÀÔ´Ï´Ù.");
 }
 
 
@@ -198,7 +199,6 @@ Actor* Game(Actor* player, int ai) {
                 }
                 else if ((select == 2) && (player->Dotbogi > 0)) {
                     printf("%s\n", peekGun(&gun).dmg == 1 ? "½ÇÅºÀÌ´Ù." : "°øÆ÷ÅºÀÌ´Ù.");
-                    gun.bullets[gun.front].doAIknow = 1;
                     player->Dotbogi--;
                 }
                 else if ((select == 3) && (player->Handcuffs > 0)) {
