@@ -136,6 +136,7 @@ Actor* Game(Actor* player, int ai) {
         if (is_empty(&gun)) {
             printf("\n»õ ÅºÃ¢!\n");
             Sleep(1000);
+            initGun(&gun);
             int temp = (rand() % MAX_SIZE_GUN) + 1;
             for (int i = 0; i < temp; i++) {
                 Bullet b = createBullet();

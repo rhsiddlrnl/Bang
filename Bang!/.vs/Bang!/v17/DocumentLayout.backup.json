@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Bang\\Bang-\\Bang!\\",
+  "WorkspaceRootPath": "C:\\Bang_final\\Bang!\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7DB6478-4C6D-440A-BD3E-1DBDF90CDBF4}|Bang!\\Bang!.vcxproj|C:\\Bang\\Bang-\\Bang!\\Bang!\\Bang_Final.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{A7DB6478-4C6D-440A-BD3E-1DBDF90CDBF4}|Bang!\\Bang!.vcxproj|C:\\Bang_final\\Bang!\\Bang!\\Bang_Final.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A7DB6478-4C6D-440A-BD3E-1DBDF90CDBF4}|Bang!\\Bang!.vcxproj|solutionrelative:Bang!\\Bang_Final.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -14,17 +14,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Bang_Final.cpp",
-              "DocumentMoniker": "C:\\Bang\\Bang-\\Bang!\\Bang!\\Bang_Final.cpp",
+              "DocumentMoniker": "C:\\Bang_final\\Bang!\\Bang!\\Bang_Final.cpp",
               "RelativeDocumentMoniker": "Bang!\\Bang_Final.cpp",
-              "ToolTip": "C:\\Bang\\Bang-\\Bang!\\Bang!\\Bang_Final.cpp",
-              "RelativeToolTip": "Bang!\\Bang_Final.cpp",
-              "ViewState": "AgIAADUAAAAAAAAAAIAwwEwAAAAnAAAAAAAAAA==",
+              "ToolTip": "C:\\Bang_final\\Bang!\\Bang!\\Bang_Final.cpp*",
+              "RelativeToolTip": "Bang!\\Bang_Final.cpp*",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAAAI0AAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-06-01T07:42:48.206Z",
               "EditorCaption": ""
