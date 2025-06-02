@@ -94,12 +94,12 @@ Bullet peekGun(Gun* gun) {
 void initActor(Actor* actor) {
     actor->canActorMove = 1;
     actor->Cigarette = 1;
-    actor->Dotbogi = 10;
+    actor->Dotbogi = 1;
     actor->Handcuffs = 1;
-    actor->Phone = 10;
+    actor->Phone = 1;
     actor->HP = MAX_HEALTH;
     actor->Money = 1000;
-    actor->wincount = 3;
+    actor->wincount = 0;
 }
 void Phone_item_func(Gun* gun) {
     int N = rand() % (gun->rear - gun->front)+1;
