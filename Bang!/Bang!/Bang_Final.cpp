@@ -99,7 +99,7 @@ void initActor(Actor* actor) {
     actor->Phone = 10;
     actor->HP = MAX_HEALTH;
     actor->Money = 1000;
-    actor->wincount = 0;
+    actor->wincount = 3;
 }
 void Phone_item_func(Gun* gun) {
     int N = rand() % (gun->rear - gun->front)+1;
@@ -238,7 +238,7 @@ Actor* Game(Actor* player, int ai) {
             if (ai == 1) enemyselect = 1;
             else if (ai == 2) enemyselect = (gun.livenum >= gun.blanknum) ? 1 : 2;
             else {
-                Bullet* frontBullet = &gun.bullets[++gun.front];
+                Bullet* frontBullet = &gun.bullets[gun.front+1];
                 if (frontBullet->doAIknow) {
                     enemyselect = frontBullet->dmg ? 1 : 2;
                 }
@@ -290,7 +290,7 @@ Actor* Game(Actor* player, int ai) {
                 printAsciiArt("rens.txt");
                 printf("상대는 돋보기로 총을 살피기 시작했다.\n");
                 Sleep(1000);
-                gun.bullets[gun.front].doAIknow = 1;
+                gun.bullets[gun.front+1].doAIknow = 1;
                 enemy.Dotbogi--;
             }
             Sleep(500);
