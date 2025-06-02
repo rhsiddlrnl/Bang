@@ -363,6 +363,7 @@ Actor* Shop(Actor* actor) {
             break;
         case 4:
             if (actor->Money >= 2000) { actor->Money -= 2000; actor->Phone++; printf("휴대폰을 구매했다.\n"); }
+            else { printf("돈이 부족하다...\n"); }
             break;
         case 5:
             showInventory(actor);
