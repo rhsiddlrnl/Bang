@@ -45,7 +45,7 @@ void printAsciiArt(const char* filename) {
     while (fgets(line, sizeof(line), file)) {
         printf("%s", line);
     }
-
+    printf("\n");
     fclose(file);
 }
 
